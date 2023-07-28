@@ -1,14 +1,9 @@
 import 'package:blocproject/bloc/favoritebloc/favorite_bloc.dart';
 import 'package:blocproject/bloc/favoritebloc/favorite_state.dart';
-import 'package:blocproject/bloc/userbloc/user_bloc.dart';
-import 'package:blocproject/bloc/userbloc/user_event.dart';
-import 'package:blocproject/bloc/userbloc/user_state.dart';
 import 'package:blocproject/commonwidget/common_widget,dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/favoritebloc/favorite_event.dart';
-import '../model/user_model.dart';
 import '../utils/text_utils.dart';
 import '../utils/variables.dart';
 
@@ -29,7 +24,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         builder: (context, state) => state is FavoriteLoadedState
             ? favoriteList.isEmpty
                 ? Center(
-                    child: appText(text: 'No Data Found', fontsize: 20),
+                    child: appText(text: 'No Data Found', fontsize: 18,color: Colors.deepPurpleAccent.shade100),
                   )
                 : ListView.builder(
                     padding: const EdgeInsets.only(top: 10),

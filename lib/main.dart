@@ -1,5 +1,3 @@
-import 'package:blocproject/bloc/favoritebloc/favorite_bloc.dart';
-import 'package:blocproject/bloc/favoritebloc/favorite_state.dart';
 import 'package:blocproject/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,10 +17,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => UserBloc()..add(FetchUserDataEvent()),
-        ),  BlocProvider(
-          create: (context) => FavoriteBloc(),
         ),
-        BlocProvider(create: (context) => FavoriteBloc()),
       ],
       child: MaterialApp(
         title: 'Flutter Bloc',

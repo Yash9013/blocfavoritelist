@@ -11,7 +11,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserDataLoadingState()) {
     on<FetchUserDataEvent>((event, emit) => fetchUserData(event, emit));
     on<AddUserEvent>((event, emit) => addToFavorite(event, emit));
-    // on<RemoveUserEvent>((event, emit) => removeFromFavorite(event, emit));
+    on<RemoveUserEvent>((event, emit) => removeFromFavorite(event, emit));
   }
 
   fetchUserData(FetchUserDataEvent event, Emitter<UserState> emit) async {
@@ -28,24 +28,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (favoriteList.contains(userData[event.index])) {
       favoriteList.remove(userData[event.index]);
 
-      print('Remove from FavoriteList ${event.index}');
       emit(UserRemoveState(event.index));
       favoriteCount = favoriteList.length.toString();
     } else {
       favoriteList.add(userData[event.index]);
-      print('Add To FavoriteList ${event.index}');
+
       emit(UserAddState(event.index));
       favoriteCount = favoriteList.length.toString();
     }
   }
 
-  // removeFromFavorite(RemoveUserEvent event, Emitter<UserState> emit) {
-  //   favoriteList.remove(userData[event.index]);
-  //
-  //   print('Remove from FavoriteList ${event.index}');
-  //
-  //   emit(UserFavoriteRemoveState(event.index));
-  //   emit(UserDataLoadingState());
-  //   favoriteCount = favoriteList.length.toString();
-  // }
+  removeFromFavorite(RemoveUserEvent event, Emitter<UserState> emit) {
+    favoriteList.removeAt(event.index);
+
+    emit(UserFavoriteRemoveState(event.index));
+
+    favoriteCount = favoriteList.length.toString();
+  }
 }

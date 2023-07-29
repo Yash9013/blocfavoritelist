@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ]),
       body: BlocConsumer<UserBloc, UserState>(
         buildWhen: (previous, current) => current is UserDataSuccessState,
+        listenWhen: (previous, current) => previous is !UserDataSuccessState,
         listener: (context, state) {
           if (state is UserDataSuccessState) {
             commonSnackBar(context, 'Data Fetch Successfully');
@@ -65,6 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 final usersData = state.userData[index];
                 return ListTile(
+                  onTap: () {
+                    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                    context.read<UserBloc>().add(AddUserEvent(index));
+                  },
                   dense: true,
                   leading: CircleAvatar(
                     child: Center(
